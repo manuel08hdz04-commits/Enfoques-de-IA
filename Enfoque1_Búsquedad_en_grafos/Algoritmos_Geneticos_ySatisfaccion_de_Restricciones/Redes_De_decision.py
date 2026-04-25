@@ -1,27 +1,40 @@
-# ----------------------------------------
-# RED DE DECISIÓN - ELECCIÓN DE INVERSIÓN
-# ----------------------------------------
+'''
+RED DE DECISIÓN
 
-# Función de utilidad: calcula beneficio neto
+Modelo para elegir la mejor acción considerando incertidumbre.
+
+Se basa en calcular el valor esperado de cada decisión:
+valor esperado = probabilidad * utilidad
+
+Permite decidir, por ejemplo:
+- invertir o no
+- tomar un riesgo o no
+'''
+
+# ====================== FUNCIÓN DE UTILIDAD ============================
+
 def utilidad(estado):
-    # ganancia menos costo
+    # Calcula qué tan buena es una decisión
+    # utilidad = ganancia - costo
     return estado["ganancia"] - estado["costo"]
 
 
-# Función que elige la mejor decisión
+# ====================== ALGORITMO PRINCIPAL ===========================
+
 def mejor_decision(acciones):
     mejor_accion = None
     mejor_valor = float("-inf")  # valor inicial muy bajo
 
-    # Evaluar cada acción disponible
+    # 🔹 Evaluar cada acción posible
     for accion in acciones:
         valor_total = 0  # valor esperado de la acción
 
-        # Recorrer los posibles resultados de esa acción
+        # 🔹 Recorrer los resultados posibles
         for resultado, probabilidad in accion["resultados"]:
+            # calcular contribución al valor esperado
             valor_total += probabilidad * utilidad(resultado)
 
-        # Comparar con la mejor opción encontrada
+        # 🔹 Comparar con la mejor opción actual
         if valor_total > mejor_valor:
             mejor_valor = valor_total
             mejor_accion = accion
@@ -29,16 +42,15 @@ def mejor_decision(acciones):
     return mejor_accion
 
 
-# ----------------------------------------
-# EJEMPLO REAL: DECIDIR SI INVERTIR
-# ----------------------------------------
+# ====================== EJEMPLO =======================================
 
+# Decidir si invertir o no
 acciones = [
     {
         "nombre": "Invertir",
         "resultados": [
-            ({"ganancia": 10000, "costo": 2000}, 0.6),  # caso exitoso
-            ({"ganancia": 2000, "costo": 2000}, 0.4)    # caso no exitoso
+            ({"ganancia": 10000, "costo": 2000}, 0.6),  # escenario bueno
+            ({"ganancia": 2000, "costo": 2000}, 0.4)    # escenario malo
         ]
     },
     {
@@ -49,8 +61,11 @@ acciones = [
     }
 ]
 
-# Ejecutar el algoritmo
+
+# ====================== EJECUCIÓN =====================================
+
 mejor = mejor_decision(acciones)
 
-# Mostrar resultado
+print("\n[Red de Decisión]")
 print("Mejor decisión:", mejor["nombre"])
+
