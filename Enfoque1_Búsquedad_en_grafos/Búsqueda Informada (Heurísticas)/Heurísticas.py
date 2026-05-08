@@ -1,4 +1,4 @@
-¿Qué son las Heurísticas y cómo funciona la Búsqueda Voraz?
+#¿Qué son las Heurísticas y cómo funciona la Búsqueda Voraz?
 # Una Heurística es un "atajo" mental o una regla práctica que ayuda a resolver un problema más rápido. 
 # En algoritmos de búsqueda, es una función $h(n)$ que estima el costo desde un nodo actual hasta 
 # la meta.
